@@ -14,8 +14,17 @@ app.use(cors())
 // request body parsing
 app.use(express.json())
 
+const myMiddleware = (req, res, next) => {
+  // I am a middleware
+  console.log('Hi 👋 the middleware has been invoked!')
+  next() // makes express move on to the next route/middleware
+}
+
+// app.use(myMiddleware)
+
 // GET / -- test index route
-app.get('/', (req, res) => {
+// defining a function as route specific middleware
+app.get('/', myMiddleware, (req, res) => {
   res.json({ msg: 'hello backend 🤖' })
 })
 
